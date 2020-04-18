@@ -1,0 +1,1 @@
+OpenCV(3.4.1) Error: Unspecified error (The function is not implemented. Rebuild the library with Windows, GTK+ 2.x or Carbon support. If you are on Ubuntu or Debian, install libgtk2.0-dev and pkg-config, then re-run cmake or configure script) in cvShowImage, file /srv/home/xgong35/opencv/modules/highgui/src/window.cpp, line 636
