@@ -50,7 +50,8 @@ int main(int argc, char* argv[])
 
     cv::cuda::printShortCudaDeviceInfo(cv::cuda::getDevice());
 
-    SURF_CUDA surf;
+    double minHessian = 400;
+    SURF_CUDA surf(minHessian);
 
     // detecting keypoints & computing descriptors
     GpuMat keypoints1GPU, keypoints2GPU;
