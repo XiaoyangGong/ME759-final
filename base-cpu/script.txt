@@ -1,3 +1,4 @@
 ./stitch --left ../images/scottsdale_left_01.png --right ../images/scottsdale_right_01.png
 g++ -o stitch_multi stitch_multi.cpp `pkg-config opencv --cflags --libs`
 ./stitch_multi 2 ../images/scottsdale_left_01.png ../images/scottsdale_right_01.png
+./stitch_multi 4 ../images/grand_canyon_left_01.png ../images/grand_canyon_left_02.png ../images/grand_canyon_right_01.png ../images/grand_canyon_right_02.png
