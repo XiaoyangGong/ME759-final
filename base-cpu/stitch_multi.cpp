@@ -67,7 +67,7 @@ int main(int argc, char* argv[])
     // Match descriptors with FLANN based matcher
     // Match img1 & img2; img2 & img3; ... ; img(n-1) & img(n)
     Ptr<DescriptorMatcher> matcher = DescriptorMatcher::create(DescriptorMatcher::FLANNBASED);
-    vector<vector<DMatch>>* knn_matches = new vector<vector<DMatch>>[n];
+    vector<vector<DMatch>>* knn_matches = new vector<vector<DMatch>>[n-1];
     for(int i = 0; i < n-1; i++){
         matcher->knnMatch(descriptors[i], descriptors[i+1], knn_matches[i], 2);
     }
@@ -103,12 +103,15 @@ int main(int argc, char* argv[])
     //imwrite("matches.jpg", img_matches);
     
     // Localize the object and get keypoints from the good matches
-    vector<Point2f>* objs = new vector<Point2f>[n];
+    // Each non-head nor non-tail img has two set of matching keypoints. 
+    // E.g. img1 has matching keypoints with img0, and matching keypoints with img2
+    // Let each img take 2 spot in array objs. E.g. img0 taks objs[0], objs[1]
+    vector<Point2f>* objs = new vector<Point2f>[2*n-2];
     for(int i = 0; i < n-1; i++){
         for(int j = 0; j < good_matches[i].size(); j++){
             //-- Get the keypoints from the good matches
-            objs[i].push_back(keypoints[i][ good_matches[i][j].queryIdx ].pt );
-            objs[i+1].push_back(keypoints[i+1][ good_matches[i][j].trainIdx ].pt );
+            objs[2*i].push_back(keypoints[i][ good_matches[i][j].queryIdx ].pt );
+            objs[2*i+1].push_back(keypoints[i+1][ good_matches[i][j].trainIdx ].pt );
         }
     }
 
@@ -117,11 +120,12 @@ int main(int argc, char* argv[])
     // Use obj1/img (the leftmost image) as reference perspective
     Mat* Hs = new Mat[n-1];
     for(int i = 0; i < n-1; i++){
-        Hs[i] = cv::findHomography(objs[i+1], objs[i], RANSAC);
+        Hs[i] = cv::findHomography(objs[2*i+1], objs[2*i], RANSAC);
         cout << "Find homography pair " << i << " and " << i+1 << endl;
     }
 
     // Apply homography matrix and stitch
+    /*
     Mat img_right;
     Mat img_left = imgs[0]; 
     Mat img_pano;
@@ -133,15 +137,26 @@ int main(int argc, char* argv[])
         copyMakeBorder(img_right(Rect(imgs[i+1].cols, 0, imgs[i+1].cols, imgs[i+1].rows)), img_pano, 0, 0, img_left.cols, 0, BORDER_CONSTANT, Scalar(0, 0, 0));
 
         Mat left_half = img_pano(Rect(0, 0, img_left.cols, img_left.rows));  
-        imgs[i].copyTo(left_half);
-        //imshow("pic", img_pano);
-        //waitKey(0);
+        img_left.copyTo(left_half);
+        imshow("pic", img_pano);
+        waitKey(0);
         img_left = img_pano; 
         cout << "finish pair " << i << " and " << i+1 << endl;
     }
     imshow("res", img_pano);
     waitKey(0);
+    */
 
+    Mat img_pano = imgs[n-1];
+    // Start from right-most imgs. Shifting perpespetive while proceeding
+    for(int i = n-1; i > 0; i--){
+        warpPerspective(img_pano, img_pano, Hs[i-1], Size(img_pano.cols + imgs[i-1].cols, img_pano.rows));
+        Mat left_half = img_pano(Rect(0, 0, imgs[i-1].cols, imgs[i-1].rows));  
+        imgs[i-1].copyTo(left_half);
+        cout << "finish pair " << i << " and " << i+1 << endl;
+    }
+    imshow("res", img_pano);
+    waitKey(0);
     return 0;
 }
 
