@@ -45,6 +45,7 @@ int main(int argc, char* argv[])
 
     Mat* imgs = new Mat[n];
 
+    // TODO check input image size matches
     for (int i = 0; i < n; ++i)
     {
         imgs[i] = imread(argv[i+2], IMREAD_GRAYSCALE);
@@ -91,11 +92,14 @@ int main(int argc, char* argv[])
                  Scalar::all(-1), std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
     }
 
+    // print out matches
+    /*
     for(int i = 0; i < n-1; i++){
-        namedWindow("Matches", WINDOW_AUTOSIZE);
-        imshow("Matches", img_matches[i]);
+        namedWindow(to_string(i), WINDOW_AUTOSIZE);
+        imshow(to_string(i), img_matches[i]);
         waitKey(0);
     }
+    */
     //imwrite("matches.jpg", img_matches);
     
     // Localize the object and get keypoints from the good matches
@@ -114,6 +118,7 @@ int main(int argc, char* argv[])
     Mat* Hs = new Mat[n-1];
     for(int i = 0; i < n-1; i++){
         Hs[i] = cv::findHomography(objs[i+1], objs[i], RANSAC);
+        cout << "Find homography pair " << i << " and " << i+1 << endl;
     }
 
     // Apply homography matrix and stitch
@@ -123,15 +128,18 @@ int main(int argc, char* argv[])
 
 
     // Start from left-most imgs
-    for(int i = 0; i < n; i++){
+    for(int i = 0; i < n-1; i++){
         warpPerspective(imgs[i+1], img_right, Hs[i], Size(imgs[i+1].cols * 2, imgs[i+1].rows));
         copyMakeBorder(img_right(Rect(imgs[i+1].cols, 0, imgs[i+1].cols, imgs[i+1].rows)), img_pano, 0, 0, img_left.cols, 0, BORDER_CONSTANT, Scalar(0, 0, 0));
 
         Mat left_half = img_pano(Rect(0, 0, img_left.cols, img_left.rows));  
         imgs[i].copyTo(left_half);
+        //imshow("pic", img_pano);
+        //waitKey(0);
         img_left = img_pano; 
+        cout << "finish pair " << i << " and " << i+1 << endl;
     }
-    imshow("pic", img_pano);
+    imshow("res", img_pano);
     waitKey(0);
 
     return 0;
