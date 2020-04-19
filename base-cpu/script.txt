@@ -1,0 +1,1 @@
+./stich --left ../images/scottsdale_left_01.png --right ../images/scottsdale_right_01.png

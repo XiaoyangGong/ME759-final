@@ -16,7 +16,8 @@ using namespace cv::xfeatures2d;
 static void help()
 {
     cout << "\nThis program demonstrates using features detector, descriptor extractor and Matcher" << endl;
-    cout << "\nUsage:\n\tsurf_keypoint_matcher --left <image1> --right <image2>" << endl;
+    cout << "\nUsage:\n\tpanaroma_stitcher --left <image1> --right <image2>" << endl;
+    cout << "\nUsage:\n\tpanaroma_stitcher -n <number of images> <image1> <image2> ... <imageN>" << endl;
 }
 
 
@@ -95,23 +96,36 @@ int main(int argc, char* argv[])
     }
 
     // Find homography matrix
+    // /*
     // Note: order of obj2, obj1 does matter
     Mat H = cv::findHomography(obj2, obj1, RANSAC);
 
     // Apply homography matrix and stitch
     Mat panorama;
     warpPerspective(img2, panorama, H, Size(img2.cols * 2, img2.rows));
-
     Mat half = panorama(Rect(0, 0, img1.cols, img1.rows));
     img1.copyTo(half);
-
-    imshow("pic", panorama);
+    imshow("Pano",panorama);
     waitKey(0);
+    // */
 
+     /*
+    Mat H = cv::findHomography(obj2, obj1, RANSAC);
+    Mat img_right;  // image to store perspective warping
+    Mat img_pano;   // Panorama image for each iteration
+    Mat img_left = img1; 
 
+    warpPerspective(img2, img_right, H, Size(img2.cols * 2, img2.rows));
+    int left_border = img_left.cols - img2.cols; 
+    Scalar value = Scalar(0, 0, 0);
+    copyMakeBorder(img_right, img_pano, 0, 0, left_border, 0, BORDER_CONSTANT, value);
 
-
-
+    Mat left_half = img_pano(Rect(0, 0, img_left.cols, img_left.rows));  
+    // imshow("right_half", right_half);
+    img1.copyTo(left_half);
+    imshow("pic", img_pano);
+    waitKey(0);
+    */
 
     return 0;
 }
@@ -121,7 +135,7 @@ int main(int argc, char* argv[])
 
 int main()
 {
-    std::cerr << "OpenCV was built without xfeatures2d module" << std::endl;
+    std::cerr << "Error: Panaroma stitching requires OpenCV xfeatures2d module" << std::endl;
     return 0;
 }
 
