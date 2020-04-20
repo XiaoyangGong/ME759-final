@@ -1,0 +1,22 @@
+nvcc task1.cu matmul.cu -Xcompiler -O3 -Xcompiler -Wall -Xptxas -O3 -o task1
+
+nvcc -c cudacode.cu -Xcompiler -O3
+
+nvcc -c CUDA_RANSAC_Homography.cu CUDA_SVD.cu -Xcompiler -O3 -Xcompiler -Wall -Xptxas -O3
+g++ -o homography main.cpp DataTypes.h CUDA_RANSAC_Homography.h CUDA_SVD.o CUDA_RANSAC_Homography.o -L/usr/local/cuda/lib64 -lcuda -lcudart `pkg-config opencv --cflags --libs`
+
+
+
+
+I was able to resolve my issue with a couple of different posts including these ones. Don't forget that if you are using a 64 bit machine to link to the 64 bit library! It seams kind of obvious, but for clowns like me, that is something I forgot. Here is the make file that I now use... if you can digest this make file, you should be able to do what I was trying to do which was separate compilation of cuda code and other G++ code. Also keep in mind that you have to have the gcc, g++ compilers at certain versions (I am using g++-4.4 and it is working for me) Anyway, here is the make file...
+
+all: program
+
+program: cudacode.o
+    g++ -o program -L/usr/local/cuda/lib64 -lcuda -lcudart main.cpp  cudacode.o 
+
+cudacode.o:
+    nvcc -c -arch=sm_20 cudacode.cu 
+
+clean: rm -f *.o program
+Hopefully you can see that the first thing I do is compile the cudacode (that has been saved as a .cu) using the nvcc compiler and -c option (also note that you may want to remove the -arch=sm_20). This created a cudacode.o. I then use the g++ compiler with the -o option and link to the lib64 library and link the -lcuda and -lcudart libraries along with compiling my main.cpp and then linking the cudacode.o. Hope this helps someone!
