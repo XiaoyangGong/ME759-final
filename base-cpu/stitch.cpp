@@ -78,9 +78,11 @@ int main(int argc, char* argv[])
     }
 
     // drawing the results
+    /*
     Mat img_matches;
     drawMatches(img1, keypoints1, img2, keypoints2, good_matches, img_matches, Scalar::all(-1),
                  Scalar::all(-1), std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
+    */
     //imwrite("matches.jpg", img_matches);
     
     // Localize the object
