@@ -13,7 +13,6 @@ Mat Stitcher :: stitch(Mat& img1, Mat& img2){
 	// detecting keypoints & computing descriptors
 	detector->detectAndCompute(img1, noArray(), keypoints1, descriptors1);
 	detector->detectAndCompute(img2, noArray(), keypoints2, descriptors2);
-cout << "here" << endl;
 	cout << "FOUND " << keypoints1.size() << " keypoints on first image" << endl;
 	cout << "FOUND " << keypoints2.size() << " keypoints on second image" << endl;
 

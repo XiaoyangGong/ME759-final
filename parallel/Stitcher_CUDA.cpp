@@ -3,31 +3,29 @@ using namespace std;
 using namespace cv;
 using namespace cv::cuda;
 	// constructor
-Stitcher_CUDA :: Stitcher(){
-	minHessian = 400;
-	surf(minHessian);
+Stitcher_CUDA :: Stitcher_CUDA(){
 	matcher = cv::cuda::DescriptorMatcher::createBFMatcher(surf.defaultNorm());
 	cv::cuda::printShortCudaDeviceInfo(cv::cuda::getDevice());
 }
-
+// inline
 GpuMat Stitcher_CUDA :: stitch(GpuMat& img1, GpuMat& img2){
+
 	// detecting keypoints & computing descriptors
     surf(img1, GpuMat(), keypoints1GPU, descriptors1GPU);
     surf(img2, GpuMat(), keypoints2GPU, descriptors2GPU);
 
+
     cout << "FOUND " << keypoints1GPU.cols << " keypoints on first image" << endl;
     cout << "FOUND " << keypoints2GPU.cols << " keypoints on second image" << endl;
 
-    	// Match descriptors with FLANN based matcher
-	matcher->knnMatch(descriptors1, descriptors2, knn_matches, 2);
-    matcher->match(descriptors1GPU, descriptors2GPU, matches);
     
+    // Match descriptors with FLANN based matcher
+    matcher->knnMatch(descriptors1GPU, descriptors2GPU, knn_matches, 2);
+	std::cout << "knn_matches=" << knn_matches.size() << std::endl;
 
-    // TODO: find CUDA KNN matcher
-    /*
     // Filter matches using the Lowe's ratio test
     // Can use OpenMP
-	const float ratio_thresh = 0.75f;
+	const float ratio_thresh = 0.7f;
 	std::vector<DMatch> good_matches;
 	for (size_t i = 0; i < knn_matches.size(); i++)
 	{
@@ -37,13 +35,24 @@ GpuMat Stitcher_CUDA :: stitch(GpuMat& img1, GpuMat& img2){
             // TODO create match_score var from distance
 		}
 	}
-	*/
+	std::cout << "Good matches =" << good_matches.size() << std::endl;
+
 
 	// Download objects
 	surf.downloadKeypoints(keypoints1GPU, keypoints1);
     surf.downloadKeypoints(keypoints2GPU, keypoints2);
     surf.downloadDescriptors(descriptors1GPU, descriptors1);
     surf.downloadDescriptors(descriptors2GPU, descriptors2);
+
+
+    // drawing the results
+    /*
+    Mat img_matches;
+    drawMatches(Mat(img1), keypoints1, Mat(img2), keypoints2, good_matches, img_matches);
+    imshow("matches", img_matches);
+    waitKey(0);
+	*/
+
 
     // Localize the object
 	std::vector<Point2f> obj1;
@@ -57,12 +66,11 @@ GpuMat Stitcher_CUDA :: stitch(GpuMat& img1, GpuMat& img2){
     // Find homography matrix
     // Note: order of obj2, obj1 does matter
 	H = cv::findHomography(obj2, obj1, RANSAC);
-
+	Mat cpu_img_pano;
     // Apply homography matrix and stitch
-	warpPerspective(img2, img_pano, H, Size(img2.cols + img1.cols, img2.rows));
-	Mat half = img_pano(Rect(0, 0, img1.cols, img1.rows));
-	img1.copyTo(half);
-		//imshow("Panorama", img_pano);
-		//waitKey(0);
+	cv::warpPerspective(Mat(img2), cpu_img_pano, H, Size(Mat(img2).cols + Mat(img1).cols, Mat(img2).rows));
+	Mat half = cpu_img_pano(Rect(0, 0, Mat(img1).cols, Mat(img1).rows));
+	Mat(img1).copyTo(half);
+	img_pano.upload(cpu_img_pano);
 	return img_pano;
 }

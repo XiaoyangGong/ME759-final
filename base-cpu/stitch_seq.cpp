@@ -1,14 +1,5 @@
-#include <iostream>
-#include <vector>
-#include <string>
-#include "opencv2/core.hpp"
 #include "Stitcher.hpp"
 #ifdef HAVE_OPENCV_XFEATURES2D
-#include "opencv2/calib3d.hpp"
-#include "opencv2/features2d.hpp"
-#include "opencv2/imgproc.hpp"
-#include "opencv2/highgui.hpp"
-#include "opencv2/xfeatures2d.hpp"
 
 using namespace std;
 using namespace cv;
@@ -23,6 +14,8 @@ static void help()
 
 int main(int argc, char* argv[])
 {
+    cout << "\n Start Stitching: Sequential mode" << endl;
+
     if (argc < 3)
     {
         help();

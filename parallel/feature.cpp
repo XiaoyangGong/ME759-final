@@ -80,9 +80,9 @@ int main(int argc, char* argv[])
     drawMatches(Mat(img1), keypoints1, Mat(img2), keypoints2, matches, img_matches);
 
     //namedWindow("matches", 0);
-    //imshow("matches", img_matches);
-    imwrite("matches.jpg", img_matches);
-    //waitKey(0);
+    imshow("matches", img_matches);
+    //imwrite("matches.jpg", img_matches);
+    waitKey(0);
 
     return 0;
 }

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <string>
 #include "opencv2/core.hpp"
 
 #include "opencv2/calib3d.hpp"
@@ -16,7 +17,7 @@ class Stitcher{
 private:
 	double minHessian;
 	Ptr<SURF> detector;
-	Ptr<DescriptorMatcher> matcher;
+	cv::Ptr<cv::cuda::DescriptorMatcher> matcher
 	std::vector<KeyPoint> keypoints1, keypoints2;
 	Mat descriptors1, descriptors2;
 	std::vector<std::vector<DMatch>> knn_matches;

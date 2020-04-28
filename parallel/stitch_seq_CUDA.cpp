@@ -1,4 +1,4 @@
-#include "Stitcher.hpp"
+#include "Stitcher_CUDA.hpp"
 #ifdef HAVE_OPENCV_XFEATURES2D
 
 using namespace std;
@@ -14,7 +14,6 @@ static void help()
 
 int main(int argc, char* argv[])
 {
-    cout << "\n Start Stitching: Divide and conquer mode" << endl;
     if (argc < 3)
     {
         help();
@@ -35,22 +34,22 @@ int main(int argc, char* argv[])
         help();
 	}
 
-    Mat* imgs = new Mat[n];
 
+    GpuMat* imgs = new GpuMat[n];
     // TODO check input image size matches
-    for (int i = 0; i < n; ++i)
-    {
-        imgs[i] = imread(argv[i+2], IMREAD_GRAYSCALE);
+    for (int i = 0; i < n; ++i){
+        imgs[i].upload(imread(argv[i+2], IMREAD_GRAYSCALE));
         CV_Assert(!imgs[i].empty());
     }
-
-    Stitcher* st = new Stitcher();
-    Mat img_intermed = imgs[n-1];
+    
+    Stitcher_CUDA* st = new Stitcher_CUDA();
+    
+    GpuMat img_intermed = imgs[n-1];
     for(int i = n-1; i > 0; i--){
     	img_intermed = st->stitch(imgs[i-1], img_intermed);
     }
-    Mat img_pano = img_intermed;
-    imshow("Pano", img_pano);
+    GpuMat img_pano = img_intermed;
+    imshow("Pano", Mat(img_pano));
     waitKey(0);
     return 0;
 }

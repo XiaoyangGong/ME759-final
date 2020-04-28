@@ -4,10 +4,22 @@ g++ -o stitch_multi stitch_multi.cpp `pkg-config opencv --cflags --libs`
 ./stitch_multi 4 ../images/grand_canyon_left_01.png ../images/grand_canyon_left_02.png ../images/grand_canyon_right_01.png ../images/grand_canyon_right_02.png
 
 
-g++ -o stitch_binary stitch_binary.cpp Stitcher.cpp Stitcher.hpp `pkg-config opencv --cflags --libs`
-g++ -o stitch_seq stitch_seq.cpp Stitcher.cpp Stitcher.hpp `pkg-config opencv --cflags --libs`
-g++ -o stitch_seq_opt stitch_seq_opt.cpp `pkg-config opencv --cflags --libs`
 
+g++ -o stitch_binary stitch_binary.cpp Stitcher.cpp Stitcher.hpp `pkg-config opencv --cflags --libs`
 ./stitch_binary 3 ../images/1.jpg ../images/2.jpg ../images/3.jpg
+
+
+g++ -o stitch_seq stitch_seq.cpp Stitcher.cpp Stitcher.hpp `pkg-config opencv --cflags --libs`
 ./stitch_seq 3 ../images/1.jpg ../images/2.jpg ../images/3.jpg
+
+
 ./stitch_seq_opt 3 ../images/1.jpg ../images/2.jpg ../images/3.jpg
+
+
+
+g++ -o stitch_seq_CUDA stitch_seq_CUDA.cpp Stitcher_CUDA.cpp `pkg-config opencv --cflags --libs`
+./stitch_seq_CUDA 2 ./matching/altera.jpg ./matching/altera_in_scene.jpg 
+
+
+g++ -o feature feature.cpp `pkg-config opencv --cflags --libs`
+./feature --left ./matching/altera.jpg --right ./matching/altera_in_scene.jpg
