@@ -44,11 +44,18 @@ int main(int argc, char* argv[])
     
     Stitcher_CUDA* st = new Stitcher_CUDA();
     
-    GpuMat img_intermed = imgs[n-1];
-    for(int i = n-1; i > 0; i--){
-    	img_intermed = st->stitch(imgs[i-1], img_intermed);
+    int ites = ceil(log2(n));
+
+    // always work from right to left because of the way stitcher is written
+    for(int i = 0; i < ites; i++){
+        for(int j = n-1; j > 0; j -= (1 << (i+1))){
+            if(j-(1<<i) >= 0){
+                imgs[j] = st->stitch(imgs[j-(1<<i)], imgs[j]);
+            }
+        }
     }
-    GpuMat img_pano = img_intermed;
+
+    GpuMat img_pano = imgs[n-1];
     imshow("Pano", Mat(img_pano));
     waitKey(0);
     return 0;
