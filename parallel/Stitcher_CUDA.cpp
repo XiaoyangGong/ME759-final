@@ -68,9 +68,8 @@ GpuMat Stitcher_CUDA :: stitch(GpuMat& img1, GpuMat& img2){
 	H = cv::findHomography(obj2, obj1, RANSAC);
 	Mat cpu_img_pano;
     // Apply homography matrix and stitch
-	cv::warpPerspective(Mat(img2), cpu_img_pano, H, Size(Mat(img2).cols + Mat(img1).cols, Mat(img2).rows));
-	Mat half = cpu_img_pano(Rect(0, 0, Mat(img1).cols, Mat(img1).rows));
-	Mat(img1).copyTo(half);
-	img_pano.upload(cpu_img_pano);
+	cv::cuda::warpPerspective(img2, img_pano, H, Size(img2.cols + img1.cols, img2.rows));
+	GpuMat half = img_pano(Rect(0, 0, Mat(img1).cols, Mat(img1).rows));
+	img1.copyTo(half);
 	return img_pano;
 }

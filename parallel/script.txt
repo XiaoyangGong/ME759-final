@@ -19,7 +19,7 @@ g++ -o stitch_seq stitch_seq.cpp Stitcher.cpp Stitcher.hpp `pkg-config opencv --
 
 g++ -o stitch_seq_CUDA stitch_seq_CUDA.cpp Stitcher_CUDA.cpp `pkg-config opencv --cflags --libs`
 ./stitch_seq_CUDA 2 ./matching/altera.jpg ./matching/altera_in_scene.jpg 
-
+./stitch_seq_CUDA 3 ../images/1.jpg ../images/2.jpg ../images/3.jpg
 
 g++ -o feature feature.cpp `pkg-config opencv --cflags --libs`
 ./feature --left ./matching/altera.jpg --right ./matching/altera_in_scene.jpg

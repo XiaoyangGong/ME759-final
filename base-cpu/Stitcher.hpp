@@ -17,7 +17,7 @@ class Stitcher{
 private:
 	double minHessian;
 	Ptr<SURF> detector;
-	cv::Ptr<cv::cuda::DescriptorMatcher> matcher
+	Ptr<DescriptorMatcher> matcher;
 	std::vector<KeyPoint> keypoints1, keypoints2;
 	Mat descriptors1, descriptors2;
 	std::vector<std::vector<DMatch>> knn_matches;
