@@ -28,4 +28,5 @@ g++ -o stitch_binary_CUDA stitch_binary_CUDA.cpp Stitcher_CUDA.cpp `pkg-config o
 g++ -o feature feature.cpp `pkg-config opencv --cflags --libs`
 ./feature --left ./matching/altera.jpg --right ./matching/altera_in_scene.jpg
 
-
+g++ -o stitch_seq_opt_CUDA stitch_seq_opt_CUDA.cpp `pkg-config opencv --cflags --libs`
+./stitch_seq_opt_CUDA 3 ../images/1.jpg ../images/2.jpg ../images/3.jpg
