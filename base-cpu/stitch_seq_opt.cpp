@@ -10,6 +10,12 @@
 #include "opencv2/highgui.hpp"
 #include "opencv2/xfeatures2d.hpp"
 
+#include <chrono>
+#include <ratio>
+#include <cmath>
+
+using std::chrono::high_resolution_clock;
+using std::chrono::duration;
 using namespace std;
 using namespace cv;
 using namespace cv::xfeatures2d;
@@ -45,6 +51,11 @@ int main(int argc, char* argv[])
         help();
 	}
 
+    high_resolution_clock::time_point start;
+    high_resolution_clock::time_point end;
+    duration<double, std::milli> duration_sec;
+
+
     Mat* imgs = new Mat[n];
 
     // TODO check input image size matches
@@ -54,6 +65,7 @@ int main(int argc, char* argv[])
         CV_Assert(!imgs[i].empty());
     }
 
+    start = high_resolution_clock::now();
     // detecting keypoints & computing descriptors for all imgs
     double minHessian = 400;
     Ptr<SURF> detector = SURF::create(minHessian);
@@ -134,6 +146,10 @@ int main(int argc, char* argv[])
         imgs[i-1].copyTo(left_half);
         cout << "finish pair " << i << " and " << i+1 << endl;
     }
+    end = high_resolution_clock::now();
+    duration_sec = std::chrono::duration_cast<duration<double, std::milli>>(end - start);
+    cout << "Panaroma stitching completed. Time taken: " << duration_sec.count() << endl;
+
     imshow("Pano", img_pano);
     waitKey(0);
     return 0;
