@@ -49,6 +49,13 @@ Mat Stitcher :: stitch(Mat& img1, Mat& img2){
 	end = high_resolution_clock::now();
 	duration_sec = std::chrono::duration_cast<duration<double, std::milli>>(end - start);
 	cout << "Img matching completed! Time taken: " << duration_sec.count() << endl;
+    
+    // drawing the results
+    Mat img_matches;
+    drawMatches(img1, keypoints1, img2, keypoints2, good_matches, img_matches, Scalar::all(-1),
+                 Scalar::all(-1), std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
+    imshow("Matches", img_matches);
+    waitKey(0);
 
     // Localize the object
 	std::vector<Point2f> obj1;
@@ -69,6 +76,8 @@ Mat Stitcher :: stitch(Mat& img1, Mat& img2){
     // Apply homography matrix and stitch
 	start = high_resolution_clock::now();
 	warpPerspective(img2, img_pano, H, Size(img2.cols + img1.cols, img2.rows));
+    imshow("shift", img_pano);
+    waitKey(0);
 	Mat half = img_pano(Rect(0, 0, img1.cols, img1.rows));
 	img1.copyTo(half);
 	end = high_resolution_clock::now();

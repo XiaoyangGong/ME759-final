@@ -11,7 +11,7 @@ g++ -o stitch_binary stitch_binary.cpp Stitcher.cpp Stitcher.hpp `pkg-config ope
 
 g++ -o stitch_seq stitch_seq.cpp Stitcher.cpp Stitcher.hpp `pkg-config opencv --cflags --libs`
 ./stitch_seq 3 ../images/1.jpg ../images/2.jpg ../images/3.jpg
-
+./stitch_seq 2 ../images/Blender_Suzanne1.jpg ../images/Blender_Suzanne2.jpg
 
 ./stitch_seq_opt 3 ../images/1.jpg ../images/2.jpg ../images/3.jpg
 

@@ -15,7 +15,11 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/core/cuda.hpp>
 
-
+#include <chrono>
+#include <ratio>
+#include <cmath>
+using std::chrono::high_resolution_clock;
+using std::chrono::duration;
 
 
 using namespace std;
@@ -63,8 +67,13 @@ int main(int argc, char* argv[])
     }
     cv::cuda::printShortCudaDeviceInfo(cv::cuda::getDevice());
 
+    high_resolution_clock::time_point start;
+    high_resolution_clock::time_point end;
+    duration<double, std::milli> duration_sec;
 
     // detecting keypoints & computing descriptors for all imgs
+    
+    start = high_resolution_clock::now();
     double minHessian = 400;
     SURF_CUDA surf(minHessian);
 
@@ -109,6 +118,7 @@ int main(int argc, char* argv[])
         surf.downloadDescriptors(descriptorsGPU[i], descriptors[i]);
     }
 
+    /*
     // drawing the results
     Mat* img_matches = new Mat[n-1];
     for(int i = 0; i < n-1; i++){
@@ -122,7 +132,7 @@ int main(int argc, char* argv[])
         imshow(to_string(i), img_matches[i]);
         waitKey(0);
     }
-    
+    */
     // Localize the object and get keypoints from the good matches
     // Each non-head nor non-tail img has two set of matching keypoints. 
     // E.g. img1 has matching keypoints with img0, and matching keypoints with img2
@@ -153,6 +163,9 @@ int main(int argc, char* argv[])
         imgs[i-1].copyTo(left_half);
         cout << "finish pair " << i << " and " << i+1 << endl;
     }
+    end = high_resolution_clock::now();
+    duration_sec = std::chrono::duration_cast<duration<double, std::milli>>(end - start);
+    cout << "Panaroma stitching completed. Time taken: " << duration_sec.count() << endl;
     imshow("Pano", Mat(img_pano));
     waitKey(0);
     return 0;
