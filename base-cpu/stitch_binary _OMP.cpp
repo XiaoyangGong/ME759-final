@@ -16,7 +16,8 @@ static void help()
 int main(int argc, char* argv[])
 {
     cout << "\n Start Stitching: Divide and conquer mode" << endl;
-    if (argc < 3){
+    if (argc < 3)
+    {
         help();
         return -1;
     }
@@ -38,7 +39,8 @@ int main(int argc, char* argv[])
     Mat* imgs = new Mat[n];
 
     // TODO check input image size matches
-    for (int i = 0; i < n; ++i){
+    for (int i = 0; i < n; ++i)
+    {
         imgs[i] = imread(argv[i+2], IMREAD_GRAYSCALE);
         CV_Assert(!imgs[i].empty());
     }

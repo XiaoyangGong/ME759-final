@@ -12,7 +12,6 @@ Stitcher :: Stitcher(){
 
 Mat Stitcher :: stitch(Mat& img1, Mat& img2){
 	// detecting keypoints & computing descriptors
-	
 	detector->detectAndCompute(img1, noArray(), keypoints1, descriptors1);
 	detector->detectAndCompute(img2, noArray(), keypoints2, descriptors2);
 
@@ -29,15 +28,16 @@ Mat Stitcher :: stitch(Mat& img1, Mat& img2){
 	for (size_t i = 0; i < knn_matches.size(); i++){
 		if (knn_matches[i][0].distance < ratio_thresh * knn_matches[i][1].distance){
 			good_matches.push_back(knn_matches[i][0]);
-            // TODO create match_score var from distance
 		}
 	}    
     // drawing the results
+    /*
     Mat img_matches;
     drawMatches(img1, keypoints1, img2, keypoints2, good_matches, img_matches, Scalar::all(-1),
                  Scalar::all(-1), std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
     imshow("Matches", img_matches);
     waitKey(0);
+    */
     // Localize the object
 	std::vector<Point2f> obj1;
 	std::vector<Point2f> obj2;

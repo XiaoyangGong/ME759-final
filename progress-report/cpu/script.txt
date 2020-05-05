@@ -1,8 +1,0 @@
-./stitch --left ../images/scottsdale_left_01.png --right ../images/scottsdale_right_01.png
-g++ -o stitch_multi stitch_multi.cpp `pkg-config opencv --cflags --libs`
-./stitch_multi 2 ../images/scottsdale_left_01.png ../images/scottsdale_right_01.png
-./stitch_multi 4 ../images/grand_canyon_left_01.png ../images/grand_canyon_left_02.png ../images/grand_canyon_right_01.png ../images/grand_canyon_right_02.png
-
-
-g++ -o stitch_bin stitch_multi_binary.cpp Stitcher.cpp Stitcher.hpp `pkg-config opencv --cflags --libs`
-./stitch_binary 3 ../images/1.jpg ../images/2.jpg ../images/3.jpg

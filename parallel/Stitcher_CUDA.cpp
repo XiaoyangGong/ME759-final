@@ -14,13 +14,13 @@ GpuMat Stitcher_CUDA :: stitch(GpuMat& img1, GpuMat& img2){
     surf(img1, GpuMat(), keypoints1GPU, descriptors1GPU);
     surf(img2, GpuMat(), keypoints2GPU, descriptors2GPU);
 
-    //cout << "FOUND " << keypoints1GPU.cols << " keypoints on first image" << endl;
-    //cout << "FOUND " << keypoints2GPU.cols << " keypoints on second image" << endl;
+    cout << "FOUND " << keypoints1GPU.cols << " keypoints on first image" << endl;
+    cout << "FOUND " << keypoints2GPU.cols << " keypoints on second image" << endl;
 
     
     // Match descriptors with FLANN based matcher
     matcher->knnMatch(descriptors1GPU, descriptors2GPU, knn_matches, 2);
-	//std::cout << "knn_matches=" << knn_matches.size() << std::endl;
+	std::cout << "knn_matches=" << knn_matches.size() << std::endl;
 
 
     // Filter matches using the Lowe's ratio test
@@ -32,10 +32,9 @@ GpuMat Stitcher_CUDA :: stitch(GpuMat& img1, GpuMat& img2){
 		if (knn_matches[i][0].distance < ratio_thresh * knn_matches[i][1].distance)
 		{
 			good_matches.push_back(knn_matches[i][0]);
-            // TODO create match_score var from distance
 		}
 	}
-	//std::cout << "Good matches =" << good_matches.size() << std::endl;
+	std::cout << "Good matches =" << good_matches.size() << std::endl;
 
 
 	// Download objects
