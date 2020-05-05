@@ -1,5 +1,5 @@
-#include "Stitcher_CUDA.hpp"
-#include <omp.h>
+#include "Stitcher.hpp"
+#include <cmath>
 #ifdef HAVE_OPENCV_XFEATURES2D
 
 #include<time.h> 
@@ -16,7 +16,7 @@ using namespace cv::xfeatures2d;
 static void help()
 {
     cout << "\nThis program demonstrates using features detector, descriptor extractor and Matcher" << endl;
-    cout << "\nUsage:\n\tpanaroma_stitcher <number of images> " << endl;
+    cout << "\nUsage:\n\tpanaroma_stitcher <number of images>" << endl;
 }
 
 
@@ -45,7 +45,7 @@ int main(int argc, char* argv[])
     duration<double, std::milli> duration_sec;
     const int ITE = 10; // Repeat test for 10 times
     // Create n workload from workload1000 directory, 7 pairs of pano images
-    GpuMat* imgs = new GpuMat[n];
+    Mat* imgs = new Mat[n];
     // Construct the first image
     Mat img1;
     string img_path;
@@ -68,7 +68,7 @@ int main(int argc, char* argv[])
     hconcat(img1, img2, inputImg);
     CV_Assert(!inputImg.empty());
 
-    imgs[0].upload(inputImg);
+    imgs[0] = inputImg;
 
     // Construct the rest of input images
     for(int i = 1; i < n; i++){
@@ -88,7 +88,7 @@ int main(int argc, char* argv[])
         CV_Assert(!right.empty());
         hconcat(left, right, inputImg);
 
-        imgs[i].upload(inputImg);
+        imgs[i] = inputImg;
     }
     
 
@@ -102,7 +102,7 @@ int main(int argc, char* argv[])
         for(int i = 0; i < ites; i++){
         #pragma omp parallel for
             for(int j = n-1; j > 0; j -= (1 << (i+1))){
-                Stitcher_CUDA* st = new Stitcher_CUDA();
+                Stitcher* st = new Stitcher();
                 if(j-(1<<i) >= 0){
                     imgs[j] = st->stitch(imgs[j-(1<<i)], imgs[j]);
                 }

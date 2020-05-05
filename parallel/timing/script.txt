@@ -46,3 +46,10 @@ g++ -o benchmark512 benchmark512.cpp -lstdc++fs `pkg-config opencv --cflags --li
 g++ -o benchmark480 benchmark480.cpp -lstdc++fs `pkg-config opencv --cflags --libs`
 g++ -o xform perspectiveXform.cpp -lstdc++fs `pkg-config opencv --cflags --libs`
 g++ -o xform perspectiveXform.cpp Stitcher.cpp -lstdc++fs `pkg-config opencv --cflags --libs`
+
+
+
+g++ -o stitch_binary_task_CUDA stitch_binary_task_CUDA.cpp Stitcher_CUDA.cpp `pkg-config opencv --cflags --libs` -fopenmp
+g++ -o stitch_seq_opt_CUDA stitch_seq_opt_CUDA.cpp `pkg-config opencv --cflags --libs`
+g++ -o stitch_seq_CUDA stitch_seq_CUDA.cpp Stitcher_CUDA.cpp `pkg-config opencv --cflags --libs`
+g++ -o stitch_binary stitch_binary.cpp Stitcher.cpp `pkg-config opencv --cflags --libs` -fopenmp

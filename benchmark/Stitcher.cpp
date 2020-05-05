@@ -16,8 +16,8 @@ Mat Stitcher :: stitch(Mat& img1, Mat& img2){
 	detector->detectAndCompute(img1, noArray(), keypoints1, descriptors1);
 	detector->detectAndCompute(img2, noArray(), keypoints2, descriptors2);
 
-	cout << "FOUND " << keypoints1.size() << " keypoints on first image" << endl;
-	cout << "FOUND " << keypoints2.size() << " keypoints on second image" << endl;
+	//cout << "FOUND " << keypoints1.size() << " keypoints on first image" << endl;
+	//cout << "FOUND " << keypoints2.size() << " keypoints on second image" << endl;
 
     // Match descriptors with FLANN based matcher
 	matcher->knnMatch(descriptors1, descriptors2, knn_matches, 2);
@@ -33,11 +33,13 @@ Mat Stitcher :: stitch(Mat& img1, Mat& img2){
 		}
 	}    
     // drawing the results
+    /*
     Mat img_matches;
     drawMatches(img1, keypoints1, img2, keypoints2, good_matches, img_matches, Scalar::all(-1),
                  Scalar::all(-1), std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
     imshow("Matches", img_matches);
     waitKey(0);
+	*/
     // Localize the object
 	std::vector<Point2f> obj1;
 	std::vector<Point2f> obj2;
