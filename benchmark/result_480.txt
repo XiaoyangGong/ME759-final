@@ -1,0 +1,152 @@
+CPU feature extraction: 97.1717
+CPU feature extraction: 168.255
+CPU feature extraction: 195.039
+CPU feature extraction: 320.649
+CPU feature extraction: 335.665
+CPU feature extraction: 469.606
+CPU feature extraction: 629.42
+CPU feature extraction: 598.034
+CPU feature extraction: 821.419
+CPU feature extraction: 775.15
+CPU feature extraction: 821.335
+CPU feature extraction: 909.014
+CPU feature extraction: 1091.59
+CPU feature extraction: 1336.77
+CPU feature extraction: 1251.64
+CPU feature extraction: 1620.97
+CPU feature extraction: 1374.68
+CPU feature extraction: 1563.37
+CPU feature extraction: 1765.75
+CPU feature extraction: 1548.84
+CPU feature extraction: 1732.01
+CPU feature extraction: 2140.12
+CPU feature extraction: 2102.04
+CPU feature extraction: 2166.43
+CPU feature extraction: 2470.03
+GPU feature extraction: 34.6346
+GPU feature extraction: 59.5274
+GPU feature extraction: 76.6722
+GPU feature extraction: 115.327
+GPU feature extraction: 141.692
+GPU feature extraction: 179.591
+GPU feature extraction: 193.566
+GPU feature extraction: 218.608
+GPU feature extraction: 257.588
+GPU feature extraction: 280.249
+GPU feature extraction: 323.05
+GPU feature extraction: 324.62
+GPU feature extraction: 369.466
+GPU feature extraction: 412.748
+GPU feature extraction: 459.368
+GPU feature extraction: 465.891
+GPU feature extraction: 477.304
+GPU feature extraction: 535.862
+GPU feature extraction: 580.18
+GPU feature extraction: 568.898
+GPU feature extraction: 621.501
+GPU feature extraction: 677.796
+GPU feature extraction: 703.312
+GPU feature extraction: 733.737
+GPU feature extraction: 760.906
+CPU FM
+23.8898
+30.2388
+31.1642
+48.8005
+41.7314
+51.4466
+61.3513
+65.104
+86.4256
+85.8444
+90.8355
+83.1166
+89.4847
+122.33
+119.406
+131.804
+130.775
+135.013
+165.5
+142.695
+149.545
+204.619
+190.516
+179.835
+218.556
+GPU FM
+3.62879
+10.3194
+7.93135
+41.962
+35.2895
+62.38
+116.662
+95.6972
+230.661
+187.752
+253.928
+233.596
+359.073
+591.364
+458.222
+585.197
+761.158
+774.557
+1244.4
+737.676
+1169.45
+1532.37
+1463.31
+1501.99
+1836.5
+CPU perspective warping: 2.76629
+CPU perspective warping: 4.48683
+CPU perspective warping: 6.00351
+CPU perspective warping: 7.87155
+CPU perspective warping: 9.54746
+CPU perspective warping: 11.9914
+CPU perspective warping: 13.1435
+CPU perspective warping: 15.8988
+CPU perspective warping: 17.6971
+CPU perspective warping: 19.9993
+CPU perspective warping: 23.1765
+CPU perspective warping: 27.5476
+CPU perspective warping: 27.5427
+CPU perspective warping: 29.9409
+CPU perspective warping: 38.5502
+CPU perspective warping: 32.4343
+CPU perspective warping: 34.7523
+CPU perspective warping: 40.0746
+CPU perspective warping: 41.3083
+CPU perspective warping: 43.8987
+CPU perspective warping: 46.0588
+CPU perspective warping: 51.8422
+CPU perspective warping: 54.4154
+CPU perspective warping: 63.2198
+CPU perspective warping: 59.9043
+GPU perspective warping: 2.65757
+GPU perspective warping: 0.404741
+GPU perspective warping: 0.585419
+GPU perspective warping: 0.795814
+GPU perspective warping: 1.07599
+GPU perspective warping: 1.20119
+GPU perspective warping: 1.3144
+GPU perspective warping: 1.81322
+GPU perspective warping: 1.68589
+GPU perspective warping: 1.86732
+GPU perspective warping: 2.64112
+GPU perspective warping: 3.73589
+GPU perspective warping: 2.64054
+GPU perspective warping: 2.88099
+GPU perspective warping: 3.51626
+GPU perspective warping: 2.9604
+GPU perspective warping: 3.15391
+GPU perspective warping: 4.53408
+GPU perspective warping: 3.74652
+GPU perspective warping: 3.89761
+GPU perspective warping: 4.84361
+GPU perspective warping: 4.09545
+GPU perspective warping: 4.2626
+GPU perspective warping: 5.1509
+GPU perspective warping: 4.98054

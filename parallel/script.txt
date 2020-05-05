@@ -11,7 +11,18 @@ g++ -o stitch_binary stitch_binary.cpp Stitcher.cpp Stitcher.hpp `pkg-config ope
 
 g++ -o stitch_seq stitch_seq.cpp Stitcher.cpp Stitcher.hpp `pkg-config opencv --cflags --libs`
 ./stitch_seq 3 ../images/1.jpg ../images/2.jpg ../images/3.jpg
+./stitch_seq 2 ../images/bryce_left_01.png ../images/bryce_right_01.png
+./stitch_seq 2 ../images/bryce_left_02.png ../images/bryce_right_02.png
+./stitch_seq 2 ../images/bryce_left_03.png ../images/bryce_right_03.png
+./stitch_seq 2 ../images/grand_canyon_left_01.png ../images/grand_canyon_right_01.png
+./stitch_seq 2 ../images/grand_canyon_left_02.png ../images/grand_canyon_right_02.png
+./stitch_seq 2 ../images/scottsdale_left_01.png ../images/scottsdale_right_01.png
+./stitch_seq 2 ../images/sedona_left_01.png ../images/sedona_right_01.png
+
 ./stitch_seq 2 ../images/Blender_Suzanne1.jpg ../images/Blender_Suzanne2.jpg
+
+
+
 
 ./stitch_seq_opt 3 ../images/1.jpg ../images/2.jpg ../images/3.jpg
 
@@ -30,3 +41,6 @@ g++ -o feature feature.cpp `pkg-config opencv --cflags --libs`
 
 g++ -o stitch_seq_opt_CUDA stitch_seq_opt_CUDA.cpp `pkg-config opencv --cflags --libs`
 ./stitch_seq_opt_CUDA 3 ../images/1.jpg ../images/2.jpg ../images/3.jpg
+
+g++ -o benchmark512 benchmark512.cpp -lstdc++fs `pkg-config opencv --cflags --libs`
+g++ -o benchmark480 benchmark480.cpp -lstdc++fs `pkg-config opencv --cflags --libs`

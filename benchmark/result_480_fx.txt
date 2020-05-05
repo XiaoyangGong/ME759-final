@@ -1,0 +1,154 @@
+CPU
+79.3486
+143.176
+155.596
+360.393
+370.371
+447.891
+616.544
+669.673
+675.514
+838.206
+974.939
+1078.83
+1074.13
+1031.95
+1276.41
+1509.54
+1484.97
+1276.8
+1561.83
+1641.75
+1732.2
+1652.91
+1785.44
+1948.64
+2203.52
+GPU
+34.2047
+51.0637
+74.2749
+110.564
+129.459
+158.236
+192.986
+218.001
+245.556
+278.104
+309.8
+339.252
+361.135
+379.104
+416.793
+462.764
+484.972
+488.341
+535.596
+589.208
+604.536
+608.211
+653.321
+679.69
+744.458
+CPU feature matching: 22.274
+CPU feature matching: 26.0016
+CPU feature matching: 14.0913
+CPU feature matching: 52.4483
+CPU feature matching: 41.6052
+CPU feature matching: 52.3532
+CPU feature matching: 52.6035
+CPU feature matching: 69.202
+CPU feature matching: 69.5838
+CPU feature matching: 69.0473
+CPU feature matching: 141.175
+CPU feature matching: 118.361
+CPU feature matching: 94.0269
+CPU feature matching: 76.238
+CPU feature matching: 118.182
+CPU feature matching: 119.751
+CPU feature matching: 132.752
+CPU feature matching: 94.2124
+CPU feature matching: 119.021
+CPU feature matching: 161.256
+CPU feature matching: 156.006
+CPU feature matching: 144.776
+CPU feature matching: 161.807
+CPU feature matching: 151.888
+CPU feature matching: 207.87
+GPU feature matching: 22.485
+GPU feature matching: 25.9118
+GPU feature matching: 14.1213
+GPU feature matching: 52.1013
+GPU feature matching: 41.4473
+GPU feature matching: 52.9912
+GPU feature matching: 52.0754
+GPU feature matching: 69.063
+GPU feature matching: 69.4007
+GPU feature matching: 69.4156
+GPU feature matching: 141.181
+GPU feature matching: 117.431
+GPU feature matching: 93.8883
+GPU feature matching: 76.3961
+GPU feature matching: 118.807
+GPU feature matching: 118.679
+GPU feature matching: 133.258
+GPU feature matching: 94.4104
+GPU feature matching: 118.962
+GPU feature matching: 161.861
+GPU feature matching: 155.998
+GPU feature matching: 144.356
+GPU feature matching: 162.269
+GPU feature matching: 152.612
+GPU feature matching: 205.908
+CPU PW
+2.80722
+4.56385
+5.93828
+7.75718
+9.6014
+11.2635
+13.4274
+15.541
+17.7476
+19.8288
+22.0538
+24.3436
+26.5457
+29.1574
+30.7511
+37.584
+35.5646
+38.2661
+40.1907
+43.0663
+45.7677
+48.9292
+52.0654
+54.745
+57.6042
+GPU PW
+2.56387
+0.409884
+0.590679
+0.771822
+0.994085
+1.15654
+1.31775
+1.51125
+1.68231
+1.87982
+2.04854
+2.44405
+2.62116
+2.64442
+2.78818
+3.12782
+3.15411
+3.32325
+3.56267
+3.68652
+4.06342
+4.06716
+4.24988
+4.63837
+4.81568
